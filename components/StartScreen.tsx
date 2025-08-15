@@ -1,12 +1,7 @@
-
 import React from 'react';
 import { Sparkles } from 'lucide-react';
 
-interface StartScreenProps {
-  onStart: () => void;
-}
-
-const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
+const StartScreen = ({ onStart }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       <h1 className="text-6xl md:text-8xl font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4">

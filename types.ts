@@ -1,23 +1,16 @@
+export const GameState = {
+  MENU: 0,
+  LOADING: 1,
+  PLAYING: 2,
+  LEVEL_COMPLETE: 3,
+  GAME_OVER: 4,
+  GAME_WON: 5,
+};
 
-export enum GameState {
-  MENU,
-  LOADING,
-  PLAYING,
-  LEVEL_COMPLETE,
-  GAME_OVER,
-  GAME_WON,
-}
-
-export enum Difficulty {
-  EASY = "سهل",
-  MEDIUM = "متوسط",
-  HARD = "صعب",
-  EXPERT = "محترف",
-  LEGENDARY = "أسطوري",
-}
-
-export interface QuestionData {
-  question: string;
-  correctAnswer: string;
-  incorrectAnswers: string[];
-}
+export const Difficulty = {
+  EASY: "سهل",
+  MEDIUM: "متوسط",
+  HARD: "صعب",
+  EXPERT: "محترف",
+  LEGENDARY: "أسطوري",
+};

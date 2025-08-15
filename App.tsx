@@ -1,23 +1,22 @@
-
 import React, { useState, useCallback } from 'react';
-import { GameState, Difficulty, QuestionData } from './types';
-import { LEVELS, QUESTIONS_PER_LEVEL, SCORE_TO_PASS } from './constants';
-import { fetchFootballQuestions } from './services/geminiService';
+import { GameState } from './types.ts';
+import { LEVELS, QUESTIONS_PER_LEVEL, SCORE_TO_PASS } from './constants.ts';
+import { fetchFootballQuestions } from './services/geminiService.ts';
 
-import StartScreen from './components/StartScreen';
-import LoadingSpinner from './components/LoadingSpinner';
-import GameScreen from './components/GameScreen';
-import LevelCompleteScreen from './components/LevelCompleteScreen';
-import GameOverScreen from './components/GameOverScreen';
-import WinScreen from './components/WinScreen';
+import StartScreen from './components/StartScreen.tsx';
+import LoadingSpinner from './components/LoadingSpinner.tsx';
+import GameScreen from './components/GameScreen.tsx';
+import LevelCompleteScreen from './components/LevelCompleteScreen.tsx';
+import GameOverScreen from './components/GameOverScreen.tsx';
+import WinScreen from './components/WinScreen.tsx';
 
-const App: React.FC = () => {
-  const [gameState, setGameState] = useState<GameState>(GameState.MENU);
+const App = () => {
+  const [gameState, setGameState] = useState(GameState.MENU);
   const [currentLevelIndex, setCurrentLevelIndex] = useState(0);
-  const [questions, setQuestions] = useState<QuestionData[]>([]);
+  const [questions, setQuestions] = useState([]);
   const [lastScore, setLastScore] = useState(0);
 
-  const loadQuestionsForLevel = useCallback(async (levelIndex: number) => {
+  const loadQuestionsForLevel = useCallback(async (levelIndex) => {
     setGameState(GameState.LOADING);
     const level = LEVELS[levelIndex];
     try {
@@ -40,7 +39,7 @@ const App: React.FC = () => {
     setGameState(GameState.MENU);
   };
 
-  const handleLevelComplete = (score: number) => {
+  const handleLevelComplete = (score) => {
     setLastScore(score);
     if (score >= SCORE_TO_PASS) {
       if (currentLevelIndex >= LEVELS.length - 1) {

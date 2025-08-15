@@ -1,12 +1,7 @@
-
 import React from 'react';
 import { Trophy, Repeat } from 'lucide-react';
 
-interface WinScreenProps {
-  onPlayAgain: () => void;
-}
-
-const WinScreen: React.FC<WinScreenProps> = ({ onPlayAgain }) => {
+const WinScreen = ({ onPlayAgain }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center p-4">
         <Trophy className="w-32 h-32 text-yellow-400 mb-6 drop-shadow-lg"/>

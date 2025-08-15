@@ -1,7 +1,6 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
-import { Difficulty, QuestionData } from '../types';
-import { QUESTIONS_PER_LEVEL } from '../constants';
+import { Difficulty } from '../types.ts';
+import { QUESTIONS_PER_LEVEL } from '../constants.ts';
 
 const API_KEY = process.env.API_KEY;
 
@@ -13,21 +12,21 @@ const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const responseSchema = {
   type: Type.ARRAY,
-  description: `Generate exactly ${QUESTIONS_PER_LEVEL} unique questions.`,
+  description: `Generate exactly ${QUESTIONS_PER_LEVEL} unique questions in Arabic.`,
   items: {
     type: Type.OBJECT,
     properties: {
       question: {
         type: Type.STRING,
-        description: "The question text.",
+        description: "The question text in Arabic.",
       },
       correctAnswer: {
         type: Type.STRING,
-        description: "The single correct answer.",
+        description: "The single correct answer in Arabic.",
       },
       incorrectAnswers: {
         type: Type.ARRAY,
-        description: "An array of exactly 3 distinct incorrect answers.",
+        description: "An array of exactly 3 distinct incorrect answers in Arabic.",
         items: {
           type: Type.STRING,
         },
@@ -37,14 +36,15 @@ const responseSchema = {
   },
 };
 
-export const fetchFootballQuestions = async (level: Difficulty): Promise<QuestionData[]> => {
+export const fetchFootballQuestions = async (level) => {
   try {
     const prompt = `
-      You are a football expert creating a quiz. Generate exactly ${QUESTIONS_PER_LEVEL} questions about world football for a quiz game.
-      The difficulty level should be '${level}'.
-      For each question, provide one correct answer and three distinct incorrect answers.
-      Do not repeat questions. The topics can include players, clubs, World Cups, Champions League, rules, and historical moments.
-      Ensure the incorrect answers are plausible but wrong.
+      أنت خبير في كرة القدم وتقوم بإنشاء اختبار. قم بإنشاء ${QUESTIONS_PER_LEVEL} أسئلة بالضبط حول كرة القدم العالمية للعبة اختبار.
+      يجب أن يكون مستوى الصعوبة '${level}'.
+      لكل سؤال، قدم إجابة واحدة صحيحة وثلاث إجابات خاطئة مميزة.
+      لا تكرر الأسئلة. يمكن أن تشمل الموضوعات اللاعبين والأندية وكؤوس العالم ودوري أبطال أوروبا والقواعد واللحظات التاريخية.
+      تأكد من أن الإجابات الخاطئة معقولة ولكنها غير صحيحة.
+      يجب أن تكون جميع الأسئلة والإجابات باللغة العربية الفصحى.
     `;
 
     const response = await ai.models.generateContent({
@@ -77,17 +77,17 @@ export const fetchFootballQuestions = async (level: Difficulty): Promise<Questio
 };
 
 
-const getFallbackQuestions = (level: Difficulty): QuestionData[] => {
+const getFallbackQuestions = (level) => {
     console.warn(`Using fallback questions for level: ${level}`);
     const fallbacks = {
         [Difficulty.EASY]: [
             { question: "أي فريق فاز بأكبر عدد من ألقاب دوري أبطال أوروبا؟", correctAnswer: "ريال مدريد", incorrectAnswers: ["برشلونة", "بايرن ميونخ", "ليفربول"] },
             { question: "كم عدد اللاعبين في فريق كرة القدم على أرض الملعب؟", correctAnswer: "11", incorrectAnswers: ["10", "12", "9"] },
-            { question: "من يُعرف بلقب 'الملك' في كرة القدم؟", correctAnswer: "بيليه", incorrectAnswers: ["مارادونا", "ميسي", "رونالدو"] },
+            { question: "من يُعرف بلقب 'الملك' في كرة القدم؟", correctAnswer: "بيليه", incorrectAnswers: ["مارادونا", "ميسي", "رونالدينيو"] },
             { question: "أي دولة فازت بأول بطولة لكأس العالم؟", correctAnswer: "الأوروغواي", incorrectAnswers: ["البرازيل", "الأرجنتين", "إيطاليا"] },
             { question: "ما هو اسم ملعب نادي مانشستر يونايتد؟", correctAnswer: "أولد ترافورد", incorrectAnswers: ["أنفيلد", "ستامفورد بريدج", "ملعب الإمارات"] },
             { question: "من هو الهداف التاريخي لكأس العالم؟", correctAnswer: "ميروسلاف كلوزه", incorrectAnswers: ["رونالدو نازاريو", "غيرد مولر", "ليونيل ميسي"] },
-            { question: "أي نادٍ يلعب له كيليان مبابي حاليًا (في موسم 2023-24)؟", correctAnswer: "باريس سان جيرمان", incorrectAnswers: ["ريال مدريد", "موناكو", "ليفربول"] }
+            { question: "أي نادٍ لعب له كيليان مبابي قبل ريال مدريد؟", correctAnswer: "باريس سان جيرمان", incorrectAnswers: ["موناكو", "ليفربول", "برشلونة"] }
         ]
     };
 

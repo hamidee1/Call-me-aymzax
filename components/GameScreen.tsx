@@ -1,24 +1,16 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
-import { QuestionData, Difficulty } from '../types';
-import { QUESTIONS_PER_LEVEL, TIME_PER_QUESTION } from '../constants';
-import AnswerButton from './AnswerButton';
-import TimerBar from './TimerBar';
+import { QUESTIONS_PER_LEVEL, TIME_PER_QUESTION } from '../constants.ts';
+import AnswerButton from './AnswerButton.tsx';
+import TimerBar from './TimerBar.tsx';
 
-interface GameScreenProps {
-  questions: QuestionData[];
-  level: Difficulty;
-  onLevelComplete: (score: number) => void;
-}
-
-const shuffleArray = <T,>(array: T[]): T[] => {
+const shuffleArray = (array) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
-const GameScreen: React.FC<GameScreenProps> = ({ questions, level, onLevelComplete }) => {
+const GameScreen = ({ questions, level, onLevelComplete }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [timerKey, setTimerKey] = useState(0);
 
@@ -29,7 +21,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ questions, level, onLevelComple
     return shuffleArray([currentQuestion.correctAnswer, ...currentQuestion.incorrectAnswers]);
   }, [currentQuestion]);
   
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = (answer) => {
     if (isAnswered) return;
     
     setIsAnswered(true);

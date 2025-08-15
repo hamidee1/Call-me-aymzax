@@ -1,15 +1,6 @@
-
 import React from 'react';
 
-interface AnswerButtonProps {
-  text: string;
-  onClick: () => void;
-  disabled: boolean;
-  isCorrect?: boolean;
-  isSelected?: boolean;
-}
-
-const AnswerButton: React.FC<AnswerButtonProps> = ({ text, onClick, disabled, isCorrect, isSelected }) => {
+const AnswerButton = ({ text, onClick, disabled, isCorrect, isSelected }) => {
   const getButtonClass = () => {
     if (disabled && isCorrect) {
       return "bg-green-600 shadow-green-500/50";

@@ -1,14 +1,7 @@
-
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-interface LevelCompleteScreenProps {
-  score: number;
-  totalQuestions: number;
-  onNextLevel: () => void;
-}
-
-const LevelCompleteScreen: React.FC<LevelCompleteScreenProps> = ({ score, totalQuestions, onNextLevel }) => {
+const LevelCompleteScreen = ({ score, totalQuestions, onNextLevel }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center p-4">
       <h2 className="text-6xl font-black text-emerald-400 uppercase mb-4">أحسنت!</h2>

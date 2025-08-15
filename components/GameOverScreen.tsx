@@ -1,12 +1,7 @@
-
 import React from 'react';
 import { RotateCcw } from 'lucide-react';
 
-interface GameOverScreenProps {
-  onRestart: () => void;
-}
-
-const GameOverScreen: React.FC<GameOverScreenProps> = ({ onRestart }) => {
+const GameOverScreen = ({ onRestart }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center p-4">
       <h2 className="text-7xl font-black text-red-500 uppercase mb-4">انتهت اللعبة</h2>

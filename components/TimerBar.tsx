@@ -1,13 +1,6 @@
-
 import React from 'react';
 
-interface TimerBarProps {
-  duration: number;
-  isPaused: boolean;
-  onTimeUp: () => void;
-}
-
-const TimerBar: React.FC<TimerBarProps> = ({ duration, isPaused, onTimeUp }) => {
+const TimerBar = ({ duration, isPaused, onTimeUp }) => {
   const [timeLeft, setTimeLeft] = React.useState(duration);
 
   React.useEffect(() => {
